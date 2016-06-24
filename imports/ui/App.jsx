@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Radium from 'radium';
+import Radium, { StyleRoot } from 'radium';
+import AppBar from 'material-ui/AppBar';
 
+import AppDrawer from './shared/AppDrawer.jsx';
 import NavBar from './shared/NavBar.jsx';
 
 class App extends Component {
@@ -9,6 +11,14 @@ class App extends Component {
    return {
      muiTheme: getMuiTheme()
    };
+  }
+
+  componentWillMount() {
+    let setNavBarState = () => {
+      this.setState({renderNavBar: window.innerWidth > 700});
+    };
+    setNavBarState();
+    window.onresize = setNavBarState;
   }
 
   getStyles() {
@@ -25,12 +35,19 @@ class App extends Component {
   render() {
     const styles = this.getStyles();
     return (
-      <div style={styles.root}>
-        <NavBar />
-        { this.props.children }
-      </div>
+      <StyleRoot>
+        <div style={styles.root}>
+          { this.state.renderNavBar ? <NavBar /> : <AppBar onLeftIconButtonTouchTap={this.handleTouchTap.bind(this)} /> }
+          <AppDrawer ref='drawer' />
+          { this.props.children }
+        </div>
+      </StyleRoot>
     );
   }
+
+  handleTouchTap() {
+   this.refs.drawer.handleToggle();
+ }
 }
 
 App.childContextTypes = {
