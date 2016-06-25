@@ -27,6 +27,8 @@ class AppDrawer extends Component {
   getSelectedIndex() {
     return this.context.router.isActive('/', true) ? '/' :
       this.context.router.isActive('/signup') ? '/signup' :
+      this.context.router.isActive('/account') ? '/account' :
+      this.context.router.isActive('/chat') ? '/chat' :
       this.context.router.isActive('/login') ? '/login' : '';
   }
 
@@ -48,6 +50,8 @@ class AppDrawer extends Component {
         backgroundColor: 'rgba(0, 0, 0, 0.03)',
       }
     };
+
+    const currentUser = this.props.currentUser;
     return (
       <Drawer open={this.state.open}
                docked={false}
@@ -60,8 +64,12 @@ class AppDrawer extends Component {
           value={this.state.listIndex}
           onChange={this.handleChange.bind(this)}>
           <ListItem value='/' primaryText='Home' />
-          <ListItem value='/signup' primaryText='Sign up' />
-          <ListItem value='/login' primaryText='Log in' />
+          <ListItem
+            value={ currentUser ? '/account' : '/signup' }
+            primaryText={ currentUser ? 'Account' : 'Sign up' } />
+          <ListItem
+            value={ currentUser ? '/chat' : '/login' }
+            primaryText={ currentUser ? 'Chat' : 'Log in' } />
         </SelectableList>
       </Drawer>
     );
