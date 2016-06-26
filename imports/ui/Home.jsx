@@ -43,7 +43,7 @@ class Home extends Component {
     return (
       <div style={styles.root}>
         <div style={styles.slogan}>
-          chat room demo
+          BAFA吧
         </div>
       </div>
     );

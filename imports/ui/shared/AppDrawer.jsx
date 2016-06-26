@@ -57,7 +57,7 @@ class AppDrawer extends Component {
                docked={false}
                onRequestChange={this.handleRequestChange.bind(this)}>
         <div style={styles.header}>
-          Chat Room Demo
+          BAFA吧
         </div>
         <SelectableList
           selectedItemStyle={styles.selectedList}
